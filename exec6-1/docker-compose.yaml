@@ -1,0 +1,39 @@
+
+services: 
+  hsposts:
+    build: posts/.
+    ports:
+      - "4000:4000"
+    image: hartmutseitter/dhbw-exec5-nodejs-posts
+    container_name: hsposts
+    hostname: hs-posts
+    volumes:
+      - '~/Documents/dhbw/ms-vorlesung-ws-2024/exec6-1/data:/data'
+  hscomments:
+    build: comments/.
+    ports:
+      - "4001:4001"
+    image: hartmutseitter/dhbw-exec5-nodejs-comments
+    container_name: hscomments
+    hostname: hs-comments
+  hsquery:
+    build: query/.
+    ports:
+      - "4002:4002"
+    image: hartmutseitter/dhbw-exec5-nodejs-query
+    container_name: hsquery
+    hostname: hs-query
+  hsmoderation:
+    build: moderation/.
+    image: hartmutseitter/dhbw-exec5-nodejs-moderation
+    container_name: hsmoderation
+    hostname: hs-moderation
+  hsevent:
+    build: eventbus/.
+    image: hartmutseitter/dhbw-exec5-nodejs-eventbus
+    container_name: hseventbus
+    hostname: hs-eventbus
+networks:
+  default:
+    name: hsbridge
+      

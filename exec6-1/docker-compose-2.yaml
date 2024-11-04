@@ -1,0 +1,48 @@
+services: 
+  hsposts:
+    build: posts/.
+    #ports:
+    #  - "4000:4000"
+    image: hartmutseitter/dhbw-exec4-nodejs-posts
+    hostname: hs-posts
+    #container_name: hsposts
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+    depends_on:
+      - hsposts
+    ports: 
+      - "4000:4000"
+  hscomments:
+    build: comments/.
+    ports:
+      - "4001:4001"
+    image: hartmutseitter/dhbw-exec4-nodejs-comments
+    container_name: hscomments
+    hostname: hs-comments
+  hsquery:
+    build: query/.
+    ports:
+      - "4002:4002"
+    image: hartmutseitter/dhbw-exec4-nodejs-query
+    container_name: hsquery
+    hostname: hs-query
+  hsmoderation:
+    build: moderation/.
+    ports:
+      - "4003:4003"
+    image: hartmutseitter/dhbw-exec4-nodejs-moderation
+    container_name: hsmoderation
+    hostname: hs-moderation
+  hsevent:
+    build: eventbus/.
+    ports:
+      - "4005:4005"
+    image: hartmutseitter/dhbw-exec4-nodejs-eventbus
+    container_name: hseventbus
+    hostname: hs-eventbus
+networks:
+  default:
+    name: hsbridge
+      
